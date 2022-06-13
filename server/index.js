@@ -13,9 +13,17 @@ app.use(cors());
 app.post("/seed", seed);
 
 //POST REQUESTS FOR CALC:
-// post for /time
-// post for /fuel
-// post for /fuelcost
+// post to /time
+// send plane type and distance
+
+// post to /fuel
+// send plane type and distance
+
+// post to /fuelcost
+// send plane type and distance
+
+//Server could respond with an array with all of these "trips"
+// Have a single GET endpoint that would get any existing trips and display them
 
 // Aircraft
 app.get("/aircraft", getAircraft);
