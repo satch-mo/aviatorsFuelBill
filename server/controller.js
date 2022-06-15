@@ -66,4 +66,9 @@ module.exports = {
       })
       .catch((err) => console.log(err));
   },
+
+  getTime: (req, res) => {
+    console.log(req.body);
+    const {} = req.body;
+  },
 };
