@@ -68,7 +68,51 @@ module.exports = {
   },
 
   getTime: (req, res) => {
-    console.log(req.body);
-    const {} = req.body;
+    // actual calculation happening
+    // console.log(req.body);
+    const { aircraft, distance } = req.body; // destructuring from body so able to use. need cruise speed using craft_id (aircraft)
+
+    sequelize
+      .query(
+        `
+    SELECT cruise_speed FROM aircraft 
+    WHERE craft_id = ${aircraft}
+    `
+      )
+      .then((dbRes) => {
+        // console.log(dbRes[0]);
+        // console.log(dbRes[0][0].cruise_speed);
+
+        let speed = dbRes[0][0].cruise_speed;
+
+        let time = +distance / speed;
+        let hours = Math.floor(time);
+        let minutes = Math.floor((time % 1) * 60);
+
+        let timeArr = [hours, minutes];
+
+        for (i = 0; i < timeArr.length; i++) {
+          if (timeArr[i] < 10) {
+            timeArr[i] = `0${timeArr[i]}`;
+          }
+        }
+        let timeStr = `${timeArr[0]}:${timeArr[1]}`; // could edit how i want it to appear
+        console.log(timeStr);
+
+        // console.log(time);
+        // console.log(hours);
+        // console.log(minutes);
+        // console.log();
+        // // console.log(+distance);
+
+        // time in minutes = distance / cruise speed X 60
+        // let time = +distance / dbRes[0].gph;
+        // console.log(time);
+
+        res.status(200).send(timeStr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };

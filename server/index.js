@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 const { SERVER_PORT } = process.env;
 
+// destructure controller file functions to use in endpoints
 const { seed, getAircraft, getTime } = require("./controller.js");
 
 app.use(express.json());
@@ -36,7 +37,7 @@ app.get("/css", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/styles.css"));
 });
 
-// Aircraft
+// Aircraft - referencing controller file functions
 app.get("/aircraft", getAircraft);
 app.post("/time", getTime);
 

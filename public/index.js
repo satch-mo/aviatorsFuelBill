@@ -34,7 +34,7 @@ function calculator(event) {
 
   if (event.target.textContent === "Time") {
     console.log("Time Hit!");
-    axios.post("http://localhost:5877/time", tripObj); // then.catch
+    axios.post("http://localhost:5877/time", tripObj); // .then.catch
   } else if (event.target.textContent === "Fuel") {
     console.log("Fuel Hit!");
   } else if (event.target.textContent === "Cost") {
