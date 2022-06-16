@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aviator's Fuel Bill</title>
+    <title>Aviator's Calculator</title>
     <link rel="stylesheet" href="/css">
     <link href="/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
@@ -12,20 +12,25 @@
     <header>
         <h1>Aviator's Calculator</h1>
     </header>
-
+    
     <main>
+        <div id="result-display"></div>
+
         <form id="aviator">
             <label for="aircraft-select">Aircraft:</label>
             <select id="aircraft-select"></select><br>
-            <label for="distance">Distance in Nautical Miles:</label>
+            <label for="distance">Distance:</label>
             <input type="number" id="distance" name="distance" min="1" placeholder="in nautical miles"><br>
-            <button id="time" type="submit">Time</button>
-            <button id="fuel" type="submit">Fuel</button>
-            <button id="cost" type="submit">Cost</button>
+            <section id="buttons">
+                <button id="time" type="submit">Time</button>
+                <button id="fuel" type="submit">Fuel</button>
+                <button id="cost" type="submit">Cost</button>
+            </section>
         </form>
         <p>WARNING: this tool is to be used strictly for reference. When estimating fuel consumption, there are a variety of factors that are to be taken into account such as altitude, prop pitch, fuel/air mixture, wind direction, higher fuel burn during climb, engine condition, engine rpms. ALWAYS make sure you have an adequate reserve to get you to an alternative destination should there be a reason your initial destination becomes unapproachable mid-flight.</p>
 
     </main>
+ 
     
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js"></script>

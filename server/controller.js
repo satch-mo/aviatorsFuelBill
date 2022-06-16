@@ -69,7 +69,7 @@ module.exports = {
 
   getTime: (req, res) => {
     // actual calculation happening
-    // console.log(req.body);
+    console.log(req.body);
     const { aircraft, distance } = req.body; // destructuring from body so able to use. need cruise speed using craft_id (aircraft)
 
     sequelize
@@ -114,5 +114,8 @@ module.exports = {
       .catch((err) => {
         console.log(err);
       });
+  },
+  getFuel: (req, res) => {
+    console.log(req.body);
   },
 };

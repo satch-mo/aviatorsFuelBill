@@ -34,9 +34,24 @@ function calculator(event) {
 
   if (event.target.textContent === "Time") {
     console.log("Time Hit!");
-    axios.post("http://localhost:5877/time", tripObj); // .then.catch
+    axios
+      .post("http://localhost:5877/time", tripObj) // pulling data onto page
+      .then((res) => {
+        let data = res.data;
+        let quoteDiv = document.querySelector("#result-display");
+        quoteDiv.textContent = data;
+      })
+      .catch((err) => console.log(err));
   } else if (event.target.textContent === "Fuel") {
     console.log("Fuel Hit!");
+    axios.post("http://localhost:5877/fuel", tripObj);
+    // console.log(tripObj);
+    // .then((res) => {              // pulling data onto page
+    //   let data = res.data;
+    //   let quoteDiv = document.querySelector("#result-display");
+    //   quoteDiv.textContent = data;
+    // })
+    // .catch((err) => console.log(err));
   } else if (event.target.textContent === "Cost") {
     console.log("Cost Hit!");
   }
