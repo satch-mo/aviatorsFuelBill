@@ -69,14 +69,15 @@ module.exports = {
 
   getTime: (req, res) => {
     // actual calculation happening
-    console.log(req.body);
+    // console.log(req.body);
     const { aircraft, distance } = req.body; // destructuring from body so able to use. need cruise speed using craft_id (aircraft)
 
     sequelize
       .query(
         `
     SELECT cruise_speed FROM aircraft 
-    WHERE craft_id = ${aircraft}
+    WHERE craft_id = ${aircraft};
+
     `
       )
       .then((dbRes) => {
@@ -96,8 +97,8 @@ module.exports = {
             timeArr[i] = `0${timeArr[i]}`;
           }
         }
-        let timeStr = `${timeArr[0]}:${timeArr[1]}`; // could edit how i want it to appear
-        console.log(timeStr);
+        let timeStr = `Your trip will take ${timeArr[0]}h ${timeArr[1]}m to complete`; // could edit how i want it to appear
+        // console.log(timeStr);   // this is allowing me to see it in my terminal with my server
 
         // console.log(time);
         // console.log(hours);
@@ -115,7 +116,109 @@ module.exports = {
         console.log(err);
       });
   },
-  getFuel: (req, res) => {
-    console.log(req.body);
+  getFuel: async (req, res) => {
+    // console.log(req.body); // seeing tripobj in terminal
+    const { aircraft, distance } = req.body; // destructuring variables to use in calculations
+    let [pistonAircraft] = await sequelize.query(
+      `SELECT is_piston FROM aircraft WHERE craft_id = ${aircraft};`
+    );
+    pistonAircraft = pistonAircraft[0].is_piston;
+    console.log(pistonAircraft);
+    if (pistonAircraft === true) {
+      var fuelType = "100LL";
+    } else {
+      var fuelType = "Jet A";
+    }
+
+    sequelize
+      .query(
+        `
+    SELECT gph, cruise_speed FROM aircraft WHERE craft_id = ${aircraft}; 
+
+    `
+      )
+      .then((dbRes) => {
+        // console.log(dbRes[0]);
+        // console.log(dbRes[0][0].cruise_speed);
+        let fuelHour = dbRes[0][0].gph; // saved gph value to a variable
+        let speed = dbRes[0][0].cruise_speed;
+        // console.log(fuelHour, speed);
+
+        let time = +distance / speed;
+        // let hours = Math.floor(time);
+        // let minutes = Math.floor((time % 1) * 60);
+
+        // let timeArr = [hours, minutes];
+
+        // for (i = 0; i < timeArr.length; i++) {
+        //   if (timeArr[i] < 10) {
+        //     timeArr[i] = `0${timeArr[i]}`;
+        //   }
+        // }
+        // let timeStr = `Your trip will take ${timeArr[0]}h ${timeArr[1]}m`; // could edit how i want it to appear
+        // console.log(timeStr);   // this is allowing me to see it in my terminal with my server
+
+        // console.log(time); //
+        // console.log(hours);
+        // console.log(minutes);
+        // console.log();
+        // console.log(+distance);
+
+        // time in minutes = distance / cruise speed X 60
+        // let time = +distance / dbRes[0].gph;
+        // console.log(time);
+
+        // fuel consumption = time (hrs) * gph of craft
+        let gallons = (time * fuelHour).toFixed(1);
+        let fuelStr = `You will burn ${gallons} gallons of ${fuelType} on your travels`; // edit -- to say particular type of fuel e.g. ${fuelType}
+        // console.log(fuelStr);
+        res.status(200).send(fuelStr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+  getCost: async (req, res) => {
+    const { aircraft, distance } = req.body;
+    let [pistonAircraft] = await sequelize.query(
+      `SELECT is_piston FROM aircraft WHERE craft_id = ${aircraft};`
+    );
+    pistonAircraft = pistonAircraft[0].is_piston;
+    console.log(pistonAircraft);
+    if (pistonAircraft === true) {
+      var fuelType = "100LL";
+    } else {
+      var fuelType = "Jet A";
+    }
+    sequelize
+      .query(
+        `
+    SELECT gph, cruise_speed FROM aircraft WHERE craft_id = ${aircraft}; 
+
+    SELECT * FROM fuel WHERE fuel_type = '${fuelType}'
+
+    `
+      )
+      .then((dbRes) => {
+        // console.log(dbRes[0]);
+        let fuelHour = dbRes[0][0].gph; // saved gph value to a variable
+        let speed = dbRes[0][0].cruise_speed;
+        // console.log(fuelHour, speed);
+
+        let time = +distance / speed;
+        let gallons = (time * fuelHour).toFixed(2);
+
+        let fuelCost = dbRes[0][1].fuel_price;
+        let fuelBill = (fuelCost * gallons).toFixed(2);
+        // console.log(fuelCost);
+        // console.log(gallons);
+        // console.log(fuelBill);
+        let costStr = `Your fuel bill for this journey will be $${fuelBill}`;
+        console.log(costStr);
+        res.status(200).send(costStr);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };

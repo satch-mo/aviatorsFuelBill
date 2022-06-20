@@ -38,22 +38,33 @@ function calculator(event) {
       .post("http://localhost:5877/time", tripObj) // pulling data onto page
       .then((res) => {
         let data = res.data;
-        let quoteDiv = document.querySelector("#result-display");
-        quoteDiv.textContent = data;
+        let resultsDiv = document.querySelector("#result-display");
+        resultsDiv.textContent = data;
       })
       .catch((err) => console.log(err));
   } else if (event.target.textContent === "Fuel") {
     console.log("Fuel Hit!");
-    axios.post("http://localhost:5877/fuel", tripObj);
     // console.log(tripObj);
-    // .then((res) => {              // pulling data onto page
-    //   let data = res.data;
-    //   let quoteDiv = document.querySelector("#result-display");
-    //   quoteDiv.textContent = data;
-    // })
-    // .catch((err) => console.log(err));
+    axios
+      .post("http://localhost:5877/fuel", tripObj)
+      .then((res) => {
+        // pulling data onto page
+        let data = res.data;
+        // console.log(data);
+        let resultsDiv = document.querySelector("#result-display");
+        resultsDiv.textContent = data;
+      })
+      .catch((err) => console.log(err));
   } else if (event.target.textContent === "Cost") {
     console.log("Cost Hit!");
+    axios
+      .post("http://localhost:5877/cost", tripObj)
+      .then((res) => {
+        let data = res.data;
+        let resultsDiv = document.querySelector("#result-display");
+        resultsDiv.textContent = data;
+      })
+      .catch((err) => console.log(err));
   }
 }
 

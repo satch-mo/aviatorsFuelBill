@@ -16,12 +16,6 @@ form {
     align-items: center;
 }
 
-#buttons {
-    display:flex;
-    flex-direction: row;
-    width: 50%;
-    justify-content: space-around;
-}
 
 header {
     width: 100%;
@@ -37,4 +31,47 @@ p {
 
 input {
     width: 120px;
+}
+
+#buttons {
+    display:flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: space-around;
+}
+
+#time {
+    font-size: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+#time:hover {
+    background-color: tan;  
+    cursor: pointer;
+}
+
+#fuel {
+    font-size: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#fuel:hover {
+    background-color: rgb(0, 153, 255);
+    cursor: pointer;
+}
+
+#cost {
+    font-size: 20px;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#cost:hover {
+    background-color: #3e8e41;
+    cursor: pointer;
 }
