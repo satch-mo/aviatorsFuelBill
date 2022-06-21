@@ -34,7 +34,8 @@ module.exports = {
         INSERT INTO aircraft (make, model, gph, tank_capacity, is_piston, cruise_speed)
         VALUES ('Cessna', '172',  8, 42, true, 122),
         ('Beechcraft', 'Bonanza', 15, 74, true, 175),
-        ('Pilatus', 'PC-12', 55, 402, false, 268);
+        ('Pilatus', 'PC-12', 55, 402, false, 268),
+        ('Boeing', '747', 3804, 63500, false, 495);
             
         CREATE TABLE fuel (
         fuel_id SERIAL PRIMARY KEY,
