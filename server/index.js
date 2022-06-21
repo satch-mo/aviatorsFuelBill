@@ -3,7 +3,6 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const cors = require("cors");
-const { SERVER_PORT } = process.env;
 
 // destructured controller file functions to use in endpoints
 const {
@@ -36,4 +35,5 @@ app.post("/time", getTime);
 app.post("/fuel", getFuel);
 app.post("/cost", getCost);
 
-app.listen(SERVER_PORT, () => console.log(`up on ${SERVER_PORT}`));
+const port = process.env.PORT || 5877;
+app.listen(port, () => console.log(`up on ${port}`));
