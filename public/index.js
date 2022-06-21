@@ -23,9 +23,9 @@ function getAircraft() {
 
 function calculator(event) {
   event.preventDefault();
-  console.log(event.target);
-  console.log(distanceField.value);
-  console.log(aircraftSelect.value);
+  // console.log(event.target);
+  // console.log(distanceField.value);
+  // console.log(aircraftSelect.value);
 
   let tripObj = {
     aircraft: aircraftSelect.value,
@@ -33,7 +33,7 @@ function calculator(event) {
   };
 
   if (event.target.textContent === "Time") {
-    console.log("Time Hit!");
+    // console.log("Time Hit!");
     axios
       .post("http://localhost:5877/time", tripObj) // pulling data onto page
       .then((res) => {
@@ -43,7 +43,7 @@ function calculator(event) {
       })
       .catch((err) => console.log(err));
   } else if (event.target.textContent === "Fuel") {
-    console.log("Fuel Hit!");
+    // console.log("Fuel Hit!");
     // console.log(tripObj);
     axios
       .post("http://localhost:5877/fuel", tripObj)
@@ -56,7 +56,7 @@ function calculator(event) {
       })
       .catch((err) => console.log(err));
   } else if (event.target.textContent === "Cost") {
-    console.log("Cost Hit!");
+    // console.log("Cost Hit!");
     axios
       .post("http://localhost:5877/cost", tripObj)
       .then((res) => {

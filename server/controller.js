@@ -68,9 +68,8 @@ module.exports = {
   },
 
   getTime: (req, res) => {
-    // actual calculation happening
     // console.log(req.body);
-    const { aircraft, distance } = req.body; // destructuring from body so able to use. need cruise speed using craft_id (aircraft)
+    const { aircraft, distance } = req.body; // destructuring from body so able to use. now, need cruise speed using craft_id (aircraft)
 
     sequelize
       .query(
@@ -97,18 +96,7 @@ module.exports = {
             timeArr[i] = `0${timeArr[i]}`;
           }
         }
-        let timeStr = `Your trip will take ${timeArr[0]}h ${timeArr[1]}m to complete`; // could edit how i want it to appear
-        // console.log(timeStr);   // this is allowing me to see it in my terminal with my server
-
-        // console.log(time);
-        // console.log(hours);
-        // console.log(minutes);
-        // console.log();
-        // // console.log(+distance);
-
-        // time in minutes = distance / cruise speed X 60
-        // let time = +distance / dbRes[0].gph;
-        // console.log(time);
+        let timeStr = `Your trip will take ${timeArr[0]}h ${timeArr[1]}m to complete`;
 
         res.status(200).send(timeStr);
       })
@@ -123,7 +111,7 @@ module.exports = {
       `SELECT is_piston FROM aircraft WHERE craft_id = ${aircraft};`
     );
     pistonAircraft = pistonAircraft[0].is_piston;
-    console.log(pistonAircraft);
+    // console.log(pistonAircraft);
     if (pistonAircraft === true) {
       var fuelType = "100LL";
     } else {
@@ -150,25 +138,6 @@ module.exports = {
 
         // let timeArr = [hours, minutes];
 
-        // for (i = 0; i < timeArr.length; i++) {
-        //   if (timeArr[i] < 10) {
-        //     timeArr[i] = `0${timeArr[i]}`;
-        //   }
-        // }
-        // let timeStr = `Your trip will take ${timeArr[0]}h ${timeArr[1]}m`; // could edit how i want it to appear
-        // console.log(timeStr);   // this is allowing me to see it in my terminal with my server
-
-        // console.log(time); //
-        // console.log(hours);
-        // console.log(minutes);
-        // console.log();
-        // console.log(+distance);
-
-        // time in minutes = distance / cruise speed X 60
-        // let time = +distance / dbRes[0].gph;
-        // console.log(time);
-
-        // fuel consumption = time (hrs) * gph of craft
         let gallons = (time * fuelHour).toFixed(1);
         let fuelStr = `You will burn ${gallons} gallons of ${fuelType} on your travels`; // edit -- to say particular type of fuel e.g. ${fuelType}
         // console.log(fuelStr);
@@ -184,7 +153,7 @@ module.exports = {
       `SELECT is_piston FROM aircraft WHERE craft_id = ${aircraft};`
     );
     pistonAircraft = pistonAircraft[0].is_piston;
-    console.log(pistonAircraft);
+    // console.log(pistonAircraft);
     if (pistonAircraft === true) {
       var fuelType = "100LL";
     } else {
@@ -203,18 +172,15 @@ module.exports = {
         // console.log(dbRes[0]);
         let fuelHour = dbRes[0][0].gph; // saved gph value to a variable
         let speed = dbRes[0][0].cruise_speed;
-        // console.log(fuelHour, speed);
 
         let time = +distance / speed;
         let gallons = (time * fuelHour).toFixed(2);
 
         let fuelCost = dbRes[0][1].fuel_price;
         let fuelBill = (fuelCost * gallons).toFixed(2);
-        // console.log(fuelCost);
-        // console.log(gallons);
-        // console.log(fuelBill);
+
         let costStr = `Your fuel bill for this journey will be $${fuelBill}`;
-        console.log(costStr);
+        // console.log(costStr);
         res.status(200).send(costStr);
       })
       .catch((err) => {

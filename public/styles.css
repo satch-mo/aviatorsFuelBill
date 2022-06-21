@@ -34,9 +34,10 @@ input {
 }
 
 #buttons {
+    padding-top: 25px;
     display:flex;
     flex-direction: row;
-    width: 50%;
+    width: 60%;
     justify-content: space-around;
 }
 
@@ -57,6 +58,7 @@ input {
     border: 1px solid black;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
+
 }
 
 #fuel:hover {
