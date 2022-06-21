@@ -61,7 +61,7 @@ input {
     padding-top: 25px;
     display:flex;
     flex-direction: row;
-    width: 67%;
+    width: 60%;
     justify-content: space-around;
 }
 
