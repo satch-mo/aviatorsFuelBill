@@ -9,7 +9,7 @@ const fuelButton = document.querySelector("#fuel");
 const costButton = document.querySelector("#cost");
 
 function getAircraft() {
-  axios.get(`http://localhost:5877/aircraft`).then((res) => {
+  axios.get(`/aircraft`).then((res) => {
     res.data.forEach((aircraft) => {
       const option = document.createElement("option");
       option.setAttribute("value", aircraft["craft_id"]);
@@ -35,7 +35,7 @@ function calculator(event) {
   if (event.target.textContent === "Time") {
     // console.log("Time Hit!");
     axios
-      .post("http://localhost:5877/time", tripObj) // pulling data onto page
+      .post("/time", tripObj) // pulling data onto page
       .then((res) => {
         let data = res.data;
         let resultsDiv = document.querySelector("#result-display");
@@ -46,7 +46,7 @@ function calculator(event) {
     // console.log("Fuel Hit!");
     // console.log(tripObj);
     axios
-      .post("http://localhost:5877/fuel", tripObj)
+      .post("/fuel", tripObj)
       .then((res) => {
         // pulling data onto page
         let data = res.data;
@@ -58,7 +58,7 @@ function calculator(event) {
   } else if (event.target.textContent === "Cost") {
     // console.log("Cost Hit!");
     axios
-      .post("http://localhost:5877/cost", tripObj)
+      .post("/cost", tripObj)
       .then((res) => {
         let data = res.data;
         let resultsDiv = document.querySelector("#result-display");
