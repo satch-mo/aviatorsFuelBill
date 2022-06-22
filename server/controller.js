@@ -140,7 +140,7 @@ module.exports = {
         // let timeArr = [hours, minutes];
 
         let gallons = (time * fuelHour).toFixed(1);
-        let fuelStr = `You will burn ${gallons} gallons of ${fuelType} on your travels`; // edit -- to say particular type of fuel e.g. ${fuelType}
+        let fuelStr = `You will burn ${gallons} gallons of ${fuelType} on your travels`;
         // console.log(fuelStr);
         res.status(200).send(fuelStr);
       })
