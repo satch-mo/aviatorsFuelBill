@@ -6,6 +6,11 @@ body {
     margin-top:3%;
 }
 
+h1 {
+    font-size:42px;
+    font-weight: bold;
+}
+
 div {
     margin-bottom: 10px;
     text-align: center;
